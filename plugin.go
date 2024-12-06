@@ -178,9 +178,3 @@ func constructEnumValue(parent *Enum, v *protogen.EnumValue) *EnumValue {
 	}
 	return enumValue
 }
-
-func panicIfError(err error) {
-	if err != nil {
-		panic(fmt.Sprintf("%+v", err))
-	}
-}
