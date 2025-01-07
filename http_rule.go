@@ -2,12 +2,33 @@ package protocplugin
 
 import (
 	"google.golang.org/genproto/googleapis/api/annotations"
+	"net/http"
 	"regexp"
 	"strings"
 )
 
 type HttpRule struct {
 	*annotations.HttpRule
+}
+
+// Method returns an HTTP method from the HTTP rule.
+func (r *HttpRule) Method() string {
+	switch p := r.GetPattern().(type) {
+	default:
+		return ""
+	case *annotations.HttpRule_Get:
+		return http.MethodGet
+	case *annotations.HttpRule_Post:
+		return http.MethodPost
+	case *annotations.HttpRule_Put:
+		return http.MethodPut
+	case *annotations.HttpRule_Patch:
+		return http.MethodPatch
+	case *annotations.HttpRule_Delete:
+		return http.MethodDelete
+	case *annotations.HttpRule_Custom:
+		return p.Custom.Kind
+	}
 }
 
 // PathTemplate returns a path template object parsed from the HTTP rule.
