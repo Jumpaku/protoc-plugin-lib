@@ -1,7 +1,6 @@
 package protocplugin
 
 import (
-	"google.golang.org/genproto/googleapis/api/annotations"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/types/descriptorpb"
@@ -78,8 +77,8 @@ type Method struct {
 
 // MethodOptions represents the options for a protobuf method.
 type MethodOptions struct {
-	*descriptorpb.MethodOptions                       // MethodOptions is the embedded protobuf method options.
-	Http                        *annotations.HttpRule // Http is the HTTP rule associated with the method.
+	*descriptorpb.MethodOptions           // MethodOptions is the embedded protobuf method options.
+	Http                        *HttpRule // Http is the HTTP rule associated with the method.
 }
 
 // Message represents a protobuf message descriptor.

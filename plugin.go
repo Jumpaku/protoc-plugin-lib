@@ -117,7 +117,7 @@ func constructMethod(parent *Service, m *protogen.Method) *Method {
 	if o := m.Desc.Options().(*descriptorpb.MethodOptions); o != nil {
 		method.Options = &MethodOptions{MethodOptions: o}
 		if httpRule, ok := proto.GetExtension(o, annotations.E_Http).(*annotations.HttpRule); ok {
-			method.Options.Http = httpRule
+			method.Options.Http = &HttpRule{HttpRule: httpRule}
 		}
 	}
 	return method
