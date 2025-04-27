@@ -119,7 +119,6 @@ type Field struct {
 	Desc     protoreflect.FieldDescriptor // Desc is the field descriptor.
 	Options  *FieldOptions                // Options are the field options.
 	Parent   *Message                     // Parent is the parent message.
-	Oneof    *Oneof                       // Oneof is the oneof field this field belongs to, if any.
 	Extendee *Message                     // Extendee is the extended message, if this is an extension field.
 	Enum     *Enum                        // Enum is the enum type of the field, if any.
 	Message  *Message                     // Message is the message type of the field, if any.
