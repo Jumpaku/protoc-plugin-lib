@@ -110,7 +110,7 @@ type Oneof struct {
 
 // OneofOptions represents the options for a protobuf oneof field.
 type OneofOptions struct {
-	descriptorpb.OneofOptions // OneofOptions is the embedded protobuf oneof options.
+	*descriptorpb.OneofOptions // OneofOptions is the embedded protobuf oneof options.
 }
 
 // Field represents a field in a protobuf message.

@@ -135,6 +135,15 @@ func constructMessage(m *protogen.Message) *Message {
 	for _, f := range m.Fields {
 		message.Fields = append(message.Fields, constructField(message, f))
 	}
+	for _, m := range m.Messages {
+		message.Messages = append(message.Messages, constructMessage(m))
+	}
+	for _, e := range m.Enums {
+		message.Enums = append(message.Enums, constructEnum(e))
+	}
+	for _, o := range m.Oneofs {
+		message.Oneofs = append(message.Oneofs, constructOneof(message, o))
+	}
 	return message
 }
 
@@ -149,6 +158,22 @@ func constructField(parent *Message, f *protogen.Field) *Field {
 		field.Options = &FieldOptions{FieldOptions: o}
 	}
 	return field
+}
+
+func constructOneof(parent *Message, o *protogen.Oneof) *Oneof {
+	oneof := &Oneof{
+		FullName: o.Desc.FullName(),
+		Desc:     o.Desc,
+		Parent:   parent,
+		Comments: protogen.CommentSet{},
+	}
+	if o := o.Desc.Options().(*descriptorpb.OneofOptions); o != nil {
+		oneof.Options = &OneofOptions{OneofOptions: o}
+	}
+	for _, f := range o.Fields {
+		oneof.Fields = append(oneof.Fields, constructField(oneof.Parent, f))
+	}
+	return oneof
 }
 
 func constructEnum(e *protogen.Enum) *Enum {
